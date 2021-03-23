@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionType } from "../actions-types";
-import {Action} from "../actions";
+import { Action } from "../actions";
 
 /**
  * @param term
