@@ -26,7 +26,6 @@ export const searchRepositories = (term: string) => {
         payload: names,
       });
     } catch (e) {
-      console.log("error: ", e);
       dispatch({
         type: ActionType.SEARCH_REPOSITORIES_ERROR,
         payload: e.message,

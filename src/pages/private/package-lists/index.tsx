@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useActions } from "../../hooks/useActions";
+import { useActions } from "../../../hooks/useActions";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
 const PackagesList: React.FC = () => {
   const [term, setTerm] = useState("");
-  const repositories = useSelector((state) => state);
+  const { data, error, loading } = useTypedSelector(
+    (state) => state.repositories
+  );
   const { searchRepositories } = useActions();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-      searchRepositories(term)
+    searchRepositories(term);
   };
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -18,11 +22,16 @@ const PackagesList: React.FC = () => {
           value={term}
           onChange={(e) => setTerm(e.target.value)}
         />
-        <button>Search</button>
+        <button>{loading ? "Searching..." : "Search"}</button>
       </form>
       <div>
-        <pre>{JSON.stringify(repositories, undefined, 2)}</pre>
+        {!error &&
+          !loading &&
+          data.map((p) => {
+            return <div key={p}>{p}</div>;
+          })}
       </div>
+      <div>{error && <h1>{error}</h1>}</div>
     </>
   );
 };
