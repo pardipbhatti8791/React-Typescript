@@ -7,9 +7,10 @@ import { useSelector } from "react-redux";
  * @param path
  * @returns {JSX.Element}
  */
-export const returnToRoute = path => {
+export const returnToRoute = (path: string) => {
   return <Redirect to={path} />;
 };
+
 
 /**
  *
@@ -18,8 +19,9 @@ export const returnToRoute = path => {
  * @returns {JSX.Element}
  * @constructor
  */
+// @ts-ignore
 const PublicRoute = ({ component: Component, ...rest }) => {
-  const auth = useSelector(state => state.auth.isAuth);
+  const auth = useSelector((state: any) => state.auth.isAuth);
 
   if (auth) {
     return <Route {...rest} render={props => returnToRoute("/")} />;
