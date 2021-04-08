@@ -13,8 +13,13 @@ const NoPageFound = () => {
 
 const routes = [
   { path: "/", exact: true, name: "home", component: Dashboard },
-  { path: "/home", exact: true, name: "home", component: Dashboard },
-  { path: "/packages-list", exact: true, name: "Firewall", component: PackageList },
+  { path: "/dashboard", exact: true, name: "home", component: Dashboard },
+  {
+    path: "/packages-list",
+    exact: true,
+    name: "Firewall",
+    component: PackageList,
+  },
   { path: "**", component: NoPageFound },
 ];
 

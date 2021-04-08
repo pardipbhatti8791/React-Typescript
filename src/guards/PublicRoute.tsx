@@ -11,7 +11,6 @@ export const returnToRoute = (path: string) => {
   return <Redirect to={path} />;
 };
 
-
 /**
  *
  * @param Component
@@ -22,12 +21,11 @@ export const returnToRoute = (path: string) => {
 // @ts-ignore
 const PublicRoute = ({ component: Component, ...rest }) => {
   const auth = useSelector((state: any) => state.auth.isAuth);
-
-  if (auth) {
-    return <Route {...rest} render={props => returnToRoute("/")} />;
-  } else {
-    return <Route {...rest} render={props => <Component {...props} />} />;
-  }
+  return auth ? (
+    returnToRoute("/dashboard")
+  ) : (
+    <Route {...rest} render={(props) => <Component {...props} />} />
+  );
 };
 
 export default PublicRoute;

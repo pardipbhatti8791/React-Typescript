@@ -1,11 +1,32 @@
-import '../../../../app.css'
+import { useForm } from "react-hook-form";
+import "../../../../app.css";
+import { useActions } from "../../../../hooks/useActions";
+import { LoginInterface } from "../interfaces/login.interface";
+
+type Inputs = {
+  email: string;
+  password: string;
+};
+
 const Login: React.FC = () => {
+  const { login } = useActions();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  /**
+   * @param data
+   */
+  const onSubmit = (data: LoginInterface) => login(data);
+
   return (
-    <form className="form-signin">
+    <form className="form-signin" onSubmit={handleSubmit(onSubmit)}>
       <div className="text-center mb-4">
         <img
           className="mb-4"
-          src="https://dev-gugu9187.pantheonsite.io/wp-content/uploads/2020/09/sitelogo-e1603349147880.png"
+          src="https://www.gpcoders.com/_next/image?url=%2Fimages%2Fsitelogo-colored.svg&w=256&q=75"
           alt="logo"
         />
       </div>
@@ -16,10 +37,16 @@ const Login: React.FC = () => {
           id="inputEmail"
           className="form-control"
           placeholder="Email address"
-          required
+          defaultValue="gugu@gmail.com"
+          {...register("email", { required: true })}
           autoFocus
         />
         <label htmlFor="inputEmail">Email address</label>
+        <div>
+          {errors.email && (
+            <span className={"text-danger mt-2"}>Email field is required</span>
+          )}
+        </div>
       </div>
 
       <div className="form-label-group">
@@ -28,9 +55,13 @@ const Login: React.FC = () => {
           id="inputPassword"
           className="form-control"
           placeholder="Password"
-          required
+          defaultValue={"admin@33"}
+          {...register("password", { required: true })}
         />
         <label htmlFor="inputPassword">Password</label>
+        {errors.password && (
+          <span className={"text-danger mt-2"}>Password field is required</span>
+        )}
       </div>
 
       <button className="btn btn-lg btn-primary btn-block" type="submit">
@@ -40,4 +71,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login
+export default Login;

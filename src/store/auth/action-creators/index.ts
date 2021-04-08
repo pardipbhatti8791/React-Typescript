@@ -1,26 +1,27 @@
-import axios from "axios";
 import { Dispatch } from "redux";
 import { ActionType } from "../actions-types";
 import { Action } from "../actions";
+import { apiUri } from "../../../services/apiEndPoints";
+import { LoginInterface } from "../../../pages/public/auth/interfaces/login.interface";
+import service from "../../../services/service";
 
 /**
- * @param email
- * @param password
+ *
+ * @param uData
  */
-export const login = (email: string, password: string) => {
+export const login = (uData: LoginInterface) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.LOGIN,
     });
     try {
-      const { data } = await axios.get(
-        "https://registry.npmjs.org/-/v1/search"
-      );
+      const { data } = await service.post(apiUri.auth.login, uData);
       dispatch({
         type: ActionType.LOGIN_SUCCESS,
         payload: data,
       });
     } catch (e) {
+      console.log(e.message);
       dispatch({
         type: ActionType.LOGIN_ERROR,
         payload: e.message,

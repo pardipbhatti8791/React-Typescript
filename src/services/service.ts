@@ -1,8 +1,9 @@
 import axios from "axios";
 import { toastr } from "react-redux-toastr";
 
-export const service = axios.create({
-  baseURL: process.env.BASE_URL,
+const service = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL,
+  withCredentials: true
 });
 
 service.interceptors.response.use(

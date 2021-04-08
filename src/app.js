@@ -1,10 +1,14 @@
 import { Provider } from "react-redux";
-import { BrowserRouter, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter } from "react-router-dom";
 import ReduxToastr from "react-redux-toastr";
-import { store } from "./store";
-import Login from "./pages/public/auth/login/login";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+import { store } from "./store";
+
+import Login from "./pages/public/auth/login/login";
+import ProtectedRoute from "./guards/ProtectedRoute";
+import PrivateLayout from "./layouts/private/Layout";
+import PublicRoute from "./guards/PublicRoute";
 
 const App = () => {
   return (
@@ -22,8 +26,9 @@ const App = () => {
           closeOnToastrClick
         />
         <BrowserRouter>
-          <Route path={"/"} component={Login} />
-          <Route path={"/login"} component={Login} />
+          <PublicRoute path={"/"} exact component={Login} />
+          <PublicRoute path={"/login"} component={Login} />
+          <ProtectedRoute path={"/dashboard"} component={PrivateLayout} />
         </BrowserRouter>
       </Provider>
     </>

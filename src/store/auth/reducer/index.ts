@@ -1,17 +1,20 @@
 import { Action } from "../actions";
 import { ActionType } from "../actions-types";
+import { getCookie, setCookie } from "../../../utils/cookies";
 
 interface RepositoriesStateInterface {
   loading: boolean;
   error: string | null;
   data: string[];
+  isAuth: boolean;
 }
 
 const initialState = {
   loading: false,
   error: null,
-  data: []
-}
+  data: [],
+  isAuth: getCookie({ key: "isAuth" }) === "true",
+};
 
 /**
  * @param state
@@ -30,11 +33,13 @@ const reducere = (
         data: [],
       };
     case ActionType.LOGIN_SUCCESS:
+      setCookie({ key: "isAuth", value: true });
       return {
         ...state,
         loading: false,
         error: null,
         data: action.payload,
+        isAuth: true,
       };
     case ActionType.LOGIN_ERROR:
       return {
@@ -42,6 +47,7 @@ const reducere = (
         loading: false,
         error: action.payload,
         data: [],
+        isAuth: false,
       };
     default:
       return state;
