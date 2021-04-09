@@ -1,8 +1,6 @@
 import React from "react";
 
 const Dashboard = React.lazy(() => import("../pages/private/dashboard"));
-const PackageList = React.lazy(() => import("../pages/private/package-lists"));
-
 /**
  * @returns {JSX.Element}
  * @constructor
@@ -14,12 +12,6 @@ const NoPageFound = () => {
 const routes = [
   { path: "/", exact: true, name: "home", component: Dashboard },
   { path: "/dashboard", exact: true, name: "home", component: Dashboard },
-  {
-    path: "/packages-list",
-    exact: true,
-    name: "Firewall",
-    component: PackageList,
-  },
   { path: "**", component: NoPageFound },
 ];
 

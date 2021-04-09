@@ -22,7 +22,7 @@ service.interceptors.response.use(
       return;
     }
     errorMessages({
-      message: JSON.stringify(error.response.data),
+      message: JSON.stringify(error.response.data.message),
       type: "error",
       success: false,
     });
@@ -53,12 +53,10 @@ const errorMessages = (data: any) => {
     data.success === false &&
     data.hasOwnProperty("type")
   ) {
-    return toastr.error("Bammer!", data.message);
+    return toastr.error("Oops!", data.message);
   }
 };
 
 const messages: any = {
-  loginFailed: "MX Record added successfully!",
-  mxDeleted: "MX Record deleted!",
-  mxUpdated: "MX Record updated successfully!",
+  typeUndefined: "Server is down!"
 };

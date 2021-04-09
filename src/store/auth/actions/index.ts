@@ -14,7 +14,12 @@ interface LoginErrorAction {
   payload: string;
 }
 
+interface MeAction {
+  type: Function;
+}
+
 export type Action =
   | LoginAction
   | LoginSuccessAction
-  | LoginErrorAction;
+  | LoginErrorAction
+  | MeAction;

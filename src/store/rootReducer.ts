@@ -1,13 +1,10 @@
 import { combineReducers } from "redux";
 import { reducer as toastrReducer } from "react-redux-toastr";
-import repositoriesReducer from "./repositories/reducer/repositoriesReducer";
 import auth from "./auth/reducer";
 
-
 const reducers = combineReducers({
-  repositories: repositoriesReducer,
   toastr: toastrReducer,
-  auth
+  auth,
 });
 
 export default reducers;

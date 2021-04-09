@@ -9,10 +9,10 @@ import PrivateContent from "./Content";
 
 const PrivateLayout: React.FC = () => {
     return (
-        <Fragment>
+        <div id="layout-wrapper">
             <PrivateHeader />
             <PrivateContent />
-        </Fragment>
+        </div>
     )
 }
 
